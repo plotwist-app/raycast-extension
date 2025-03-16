@@ -34,7 +34,9 @@
   },
   "files": {
     "ignore": [
-      "node_modules"
+      "node_modules",
+      "src/api/*.ts",
+      "src/config.ts"
     ]
   }
 }

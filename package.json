@@ -13,42 +13,22 @@
       "title": "Add Item",
       "description": "Add a movie or series to your Plotwist",
       "mode": "view"
-    },
-    {
-      "name": "search-items",
-      "title": "Search Items",
-      "description": "Search for movies and series in your Plotwist",
-      "mode": "view"
-    },
-    {
-      "name": "update-status",
-      "title": "Update Status",
-      "description": "Update the status of a movie or series",
-      "mode": "view"
-    },
-    {
-      "name": "create-list",
-      "title": "Create List",
-      "description": "Create a new list in your Plotwist",
-      "mode": "view"
-    },
-    {
-      "name": "manage-lists",
-      "title": "Manage Lists",
-      "description": "View and manage your Plotwist lists",
-      "mode": "view"
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.93.2",
     "@raycast/utils": "^1.17.0",
+    "@tanstack/react-query": "^5.68.0",
     "axios": "^1.6.2",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "20.8.10",
     "@types/react": "18.3.3",
+    "orval": "^6.25.0",
+    "typedoc": "^0.28.0",
     "typescript": "^5.4.5"
   },
   "scripts": {
@@ -58,6 +38,7 @@
     "lint": "ray lint",
     "biome:check": "biome check --write .",
     "biome:format": "biome format --write .",
+    "generate-api": "orval",
     "prepublishOnly": "echo \"\\n\\nIt seems like you are trying to publish the Raycast extension to npm.\\n\\nIf you did intend to publish it to npm, remove the \\`prepublishOnly\\` script and rerun \\`npm publish\\` again.\\nIf you wanted to publish it to the Raycast Store instead, use \\`npm run publish\\` instead.\\n\\n\" && exit 1",
     "publish": "npx @raycast/api@latest publish"
   }
