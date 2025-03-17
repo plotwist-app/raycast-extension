@@ -7,21 +7,38 @@ export type GetUserItemsProps = {
 }
 
 export function useGetUserItems(params: GetUserItemsProps) {
-  const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isLoading } =
-    useGetUserItemsInfinite(params, {
-      query: {
-        queryKey: ['userItems', params],
-        initialPageParam: undefined,
-        getNextPageParam: lastPage => lastPage.nextCursor,
-        queryFn: async ({ pageParam }) => {
-          return await getUserItems({
-            ...params,
-            pageSize: '20',
-            cursor: pageParam as string,
-          })
-        },
+  const {
+    data,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+    isLoading,
+    error,
+    isError,
+  } = useGetUserItemsInfinite(params, {
+    query: {
+      queryKey: ['userItems', params],
+      initialPageParam: undefined,
+      getNextPageParam: lastPage => lastPage.nextCursor,
+      queryFn: async ({ pageParam }) => {
+        return await getUserItems({
+          ...params,
+          pageSize: '20',
+          cursor: pageParam as string,
+        })
       },
-    })
+    },
+  })
 
-  return { data, hasNextPage, isFetchingNextPage, fetchNextPage, isLoading }
+  console.log('data', data?.userItems[0])
+
+  return {
+    data,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+    isLoading,
+    error,
+    isError,
+  }
 }

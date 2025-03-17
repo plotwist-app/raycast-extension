@@ -9,9 +9,9 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "add-item",
-      "title": "Add Item",
-      "description": "Add a movie or series to your Plotwist",
+      "name": "list-user-items",
+      "title": "My Items",
+      "description": "View and manage your Plotwist items",
       "mode": "view"
     }
   ],
@@ -19,16 +19,18 @@
     "@plotwist_app/tmdb": "^0.2.5",
     "@raycast/api": "^1.93.2",
     "@raycast/utils": "^1.17.0",
-    "@tanstack/react-query": "^5.68.0",
     "axios": "^1.6.2",
     "node-fetch": "^3.3.2",
-    "zod": "^3.24.2"
+    "zod": "^3.24.2",
+    "@tanstack/react-query": "^5.52.2",
+    "@tanstack/react-table": "^8.20.5",
+    "@tanstack/react-virtual": "^3.10.9"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "20.8.10",
     "@types/react": "18.3.3",
-    "orval": "^6.25.0",
+    "orval": "^7.2.0",
     "typedoc": "^0.28.0",
     "typescript": "^5.4.5"
   },
