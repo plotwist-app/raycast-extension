@@ -10,9 +10,13 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -120,7 +124,7 @@ export const getGetUserEpisodesQueryKey = (params: GetUserEpisodesParams,) => {
     }
 
     
-export const getGetUserEpisodesQueryOptions = <TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(params: GetUserEpisodesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>, }
+export const getGetUserEpisodesQueryOptions = <TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(params: GetUserEpisodesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -135,22 +139,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserEpisodesQueryResult = NonNullable<Awaited<ReturnType<typeof getUserEpisodes>>>
 export type GetUserEpisodesQueryError = unknown
 
 
+export function useGetUserEpisodes<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
+ params: GetUserEpisodesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserEpisodes>>,
+          TError,
+          Awaited<ReturnType<typeof getUserEpisodes>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserEpisodes<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
+ params: GetUserEpisodesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserEpisodes>>,
+          TError,
+          Awaited<ReturnType<typeof getUserEpisodes>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserEpisodes<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
+ params: GetUserEpisodesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserEpisodes<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
- params: GetUserEpisodesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>, }
+ params: GetUserEpisodesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserEpisodesQueryOptions(params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -159,7 +187,7 @@ export function useGetUserEpisodes<TData = Awaited<ReturnType<typeof getUserEpis
 
 
 
-export const getGetUserEpisodesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(params: GetUserEpisodesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>, }
+export const getGetUserEpisodesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(params: GetUserEpisodesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -174,22 +202,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserEpisodesSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserEpisodes>>>
 export type GetUserEpisodesSuspenseQueryError = unknown
 
 
+export function useGetUserEpisodesSuspense<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
+ params: GetUserEpisodesParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserEpisodesSuspense<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
+ params: GetUserEpisodesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserEpisodesSuspense<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
+ params: GetUserEpisodesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserEpisodesSuspense<TData = Awaited<ReturnType<typeof getUserEpisodes>>, TError = unknown>(
- params: GetUserEpisodesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>, }
+ params: GetUserEpisodesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserEpisodes>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserEpisodesSuspenseQueryOptions(params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 

@@ -9,8 +9,12 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseQueryOptions,
   UseQueryResult,
   UseSuspenseQueryOptions,
@@ -61,7 +65,7 @@ export const getGetUserIdStatsQueryKey = (id: string,) => {
     }
 
     
-export const getGetUserIdStatsQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>, }
+export const getGetUserIdStatsQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -76,22 +80,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdStatsQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdStats>>>
 export type GetUserIdStatsQueryError = unknown
 
 
+export function useGetUserIdStats<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdStats>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdStats>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdStats<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdStats>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdStats>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdStats<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdStats<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdStatsQueryOptions(id,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -100,7 +128,7 @@ export function useGetUserIdStats<TData = Awaited<ReturnType<typeof getUserIdSta
 
 
 
-export const getGetUserIdStatsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>, }
+export const getGetUserIdStatsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -115,22 +143,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdStatsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdStats>>>
 export type GetUserIdStatsSuspenseQueryError = unknown
 
 
+export function useGetUserIdStatsSuspense<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
+ id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdStatsSuspense<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdStatsSuspense<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdStatsSuspense<TData = Awaited<ReturnType<typeof getUserIdStats>>, TError = unknown>(
- id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdStats>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdStatsSuspenseQueryOptions(id,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -160,7 +200,7 @@ export const getGetUserIdTotalHoursQueryKey = (id: string,) => {
     }
 
     
-export const getGetUserIdTotalHoursQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>, }
+export const getGetUserIdTotalHoursQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -175,22 +215,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdTotalHoursQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdTotalHours>>>
 export type GetUserIdTotalHoursQueryError = unknown
 
 
+export function useGetUserIdTotalHours<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdTotalHours>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdTotalHours>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdTotalHours<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdTotalHours>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdTotalHours>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdTotalHours<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdTotalHours<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdTotalHoursQueryOptions(id,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -199,7 +263,7 @@ export function useGetUserIdTotalHours<TData = Awaited<ReturnType<typeof getUser
 
 
 
-export const getGetUserIdTotalHoursSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>, }
+export const getGetUserIdTotalHoursSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -214,22 +278,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdTotalHoursSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdTotalHours>>>
 export type GetUserIdTotalHoursSuspenseQueryError = unknown
 
 
+export function useGetUserIdTotalHoursSuspense<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
+ id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdTotalHoursSuspense<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdTotalHoursSuspense<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdTotalHoursSuspense<TData = Awaited<ReturnType<typeof getUserIdTotalHours>>, TError = unknown>(
- id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdTotalHours>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdTotalHoursSuspenseQueryOptions(id,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -259,7 +335,7 @@ export const getGetUserIdReviewsCountQueryKey = (id: string,) => {
     }
 
     
-export const getGetUserIdReviewsCountQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>, }
+export const getGetUserIdReviewsCountQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -274,22 +350,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdReviewsCountQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdReviewsCount>>>
 export type GetUserIdReviewsCountQueryError = unknown
 
 
+export function useGetUserIdReviewsCount<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdReviewsCount>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdReviewsCount>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdReviewsCount<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdReviewsCount>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdReviewsCount>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdReviewsCount<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdReviewsCount<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdReviewsCountQueryOptions(id,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -298,7 +398,7 @@ export function useGetUserIdReviewsCount<TData = Awaited<ReturnType<typeof getUs
 
 
 
-export const getGetUserIdReviewsCountSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>, }
+export const getGetUserIdReviewsCountSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -313,22 +413,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdReviewsCountSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdReviewsCount>>>
 export type GetUserIdReviewsCountSuspenseQueryError = unknown
 
 
+export function useGetUserIdReviewsCountSuspense<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
+ id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdReviewsCountSuspense<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdReviewsCountSuspense<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdReviewsCountSuspense<TData = Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError = unknown>(
- id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdReviewsCount>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdReviewsCountSuspenseQueryOptions(id,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -362,7 +474,7 @@ export const getGetUserIdMostWatchedSeriesQueryKey = (id: string,
 
     
 export const getGetUserIdMostWatchedSeriesQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(id: string,
-    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>, }
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -377,23 +489,50 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdMostWatchedSeriesQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>>
 export type GetUserIdMostWatchedSeriesQueryError = unknown
 
 
+export function useGetUserIdMostWatchedSeries<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdMostWatchedSeriesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdMostWatchedSeries<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdMostWatchedSeries<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdMostWatchedSeries<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
  id: string,
-    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>, }
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdMostWatchedSeriesQueryOptions(id,params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -403,7 +542,7 @@ export function useGetUserIdMostWatchedSeries<TData = Awaited<ReturnType<typeof 
 
 
 export const getGetUserIdMostWatchedSeriesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(id: string,
-    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>, }
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -418,23 +557,38 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdMostWatchedSeriesSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>>
 export type GetUserIdMostWatchedSeriesSuspenseQueryError = unknown
 
 
+export function useGetUserIdMostWatchedSeriesSuspense<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdMostWatchedSeriesParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdMostWatchedSeriesSuspense<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdMostWatchedSeriesSuspense<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdMostWatchedSeriesSuspense<TData = Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError = unknown>(
  id: string,
-    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>, }
+    params?: GetUserIdMostWatchedSeriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdMostWatchedSeries>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdMostWatchedSeriesSuspenseQueryOptions(id,params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -468,7 +622,7 @@ export const getGetUserIdWatchedGenresQueryKey = (id: string,
 
     
 export const getGetUserIdWatchedGenresQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(id: string,
-    params?: GetUserIdWatchedGenresParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>, }
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -483,23 +637,50 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdWatchedGenresQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdWatchedGenres>>>
 export type GetUserIdWatchedGenresQueryError = unknown
 
 
+export function useGetUserIdWatchedGenres<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdWatchedGenresParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdWatchedGenres>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdWatchedGenres>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedGenres<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdWatchedGenres>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdWatchedGenres>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedGenres<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdWatchedGenres<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
  id: string,
-    params?: GetUserIdWatchedGenresParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>, }
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdWatchedGenresQueryOptions(id,params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -509,7 +690,7 @@ export function useGetUserIdWatchedGenres<TData = Awaited<ReturnType<typeof getU
 
 
 export const getGetUserIdWatchedGenresSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(id: string,
-    params?: GetUserIdWatchedGenresParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>, }
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -524,23 +705,38 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdWatchedGenresSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdWatchedGenres>>>
 export type GetUserIdWatchedGenresSuspenseQueryError = unknown
 
 
+export function useGetUserIdWatchedGenresSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdWatchedGenresParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedGenresSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedGenresSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdWatchedGenresSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError = unknown>(
  id: string,
-    params?: GetUserIdWatchedGenresParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>, }
+    params?: GetUserIdWatchedGenresParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedGenres>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdWatchedGenresSuspenseQueryOptions(id,params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -574,7 +770,7 @@ export const getGetUserIdWatchedCastQueryKey = (id: string,
 
     
 export const getGetUserIdWatchedCastQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(id: string,
-    params?: GetUserIdWatchedCastParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>, }
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -589,23 +785,50 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdWatchedCastQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdWatchedCast>>>
 export type GetUserIdWatchedCastQueryError = unknown
 
 
+export function useGetUserIdWatchedCast<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdWatchedCastParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdWatchedCast>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdWatchedCast>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCast<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdWatchedCast>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdWatchedCast>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCast<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdWatchedCast<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
  id: string,
-    params?: GetUserIdWatchedCastParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>, }
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdWatchedCastQueryOptions(id,params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -615,7 +838,7 @@ export function useGetUserIdWatchedCast<TData = Awaited<ReturnType<typeof getUse
 
 
 export const getGetUserIdWatchedCastSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(id: string,
-    params?: GetUserIdWatchedCastParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>, }
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -630,23 +853,38 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdWatchedCastSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdWatchedCast>>>
 export type GetUserIdWatchedCastSuspenseQueryError = unknown
 
 
+export function useGetUserIdWatchedCastSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdWatchedCastParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCastSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCastSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdWatchedCastSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError = unknown>(
  id: string,
-    params?: GetUserIdWatchedCastParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>, }
+    params?: GetUserIdWatchedCastParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCast>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdWatchedCastSuspenseQueryOptions(id,params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -680,7 +918,7 @@ export const getGetUserIdWatchedCountriesQueryKey = (id: string,
 
     
 export const getGetUserIdWatchedCountriesQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(id: string,
-    params?: GetUserIdWatchedCountriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>, }
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -695,23 +933,50 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdWatchedCountriesQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdWatchedCountries>>>
 export type GetUserIdWatchedCountriesQueryError = unknown
 
 
+export function useGetUserIdWatchedCountries<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdWatchedCountriesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdWatchedCountries>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdWatchedCountries>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCountries<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdWatchedCountries>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdWatchedCountries>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCountries<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdWatchedCountries<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
  id: string,
-    params?: GetUserIdWatchedCountriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>, }
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdWatchedCountriesQueryOptions(id,params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -721,7 +986,7 @@ export function useGetUserIdWatchedCountries<TData = Awaited<ReturnType<typeof g
 
 
 export const getGetUserIdWatchedCountriesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(id: string,
-    params?: GetUserIdWatchedCountriesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>, }
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -736,23 +1001,38 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdWatchedCountriesSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdWatchedCountries>>>
 export type GetUserIdWatchedCountriesSuspenseQueryError = unknown
 
 
+export function useGetUserIdWatchedCountriesSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdWatchedCountriesParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCountriesSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdWatchedCountriesSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdWatchedCountriesSuspense<TData = Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError = unknown>(
  id: string,
-    params?: GetUserIdWatchedCountriesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>, }
+    params?: GetUserIdWatchedCountriesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdWatchedCountries>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdWatchedCountriesSuspenseQueryOptions(id,params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -786,7 +1066,7 @@ export const getGetUserIdBestReviewsQueryKey = (id: string,
 
     
 export const getGetUserIdBestReviewsQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(id: string,
-    params?: GetUserIdBestReviewsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>, }
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -801,23 +1081,50 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdBestReviewsQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdBestReviews>>>
 export type GetUserIdBestReviewsQueryError = unknown
 
 
+export function useGetUserIdBestReviews<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdBestReviewsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdBestReviews>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdBestReviews>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdBestReviews<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdBestReviews>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdBestReviews>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdBestReviews<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdBestReviews<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
  id: string,
-    params?: GetUserIdBestReviewsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>, }
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdBestReviewsQueryOptions(id,params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -827,7 +1134,7 @@ export function useGetUserIdBestReviews<TData = Awaited<ReturnType<typeof getUse
 
 
 export const getGetUserIdBestReviewsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(id: string,
-    params?: GetUserIdBestReviewsParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>, }
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -842,23 +1149,38 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdBestReviewsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdBestReviews>>>
 export type GetUserIdBestReviewsSuspenseQueryError = unknown
 
 
+export function useGetUserIdBestReviewsSuspense<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
+ id: string,
+    params: undefined |  GetUserIdBestReviewsParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdBestReviewsSuspense<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdBestReviewsSuspense<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
+ id: string,
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdBestReviewsSuspense<TData = Awaited<ReturnType<typeof getUserIdBestReviews>>, TError = unknown>(
  id: string,
-    params?: GetUserIdBestReviewsParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>, }
+    params?: GetUserIdBestReviewsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdBestReviews>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdBestReviewsSuspenseQueryOptions(id,params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -888,7 +1210,7 @@ export const getGetUserIdItemsStatusQueryKey = (id: string,) => {
     }
 
     
-export const getGetUserIdItemsStatusQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>, }
+export const getGetUserIdItemsStatusQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -903,22 +1225,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdItemsStatusQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdItemsStatus>>>
 export type GetUserIdItemsStatusQueryError = unknown
 
 
+export function useGetUserIdItemsStatus<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdItemsStatus>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdItemsStatus>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdItemsStatus<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserIdItemsStatus>>,
+          TError,
+          Awaited<ReturnType<typeof getUserIdItemsStatus>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdItemsStatus<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdItemsStatus<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
- id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdItemsStatusQueryOptions(id,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -927,7 +1273,7 @@ export function useGetUserIdItemsStatus<TData = Awaited<ReturnType<typeof getUse
 
 
 
-export const getGetUserIdItemsStatusSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>, }
+export const getGetUserIdItemsStatusSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -942,22 +1288,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetUserIdItemsStatusSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getUserIdItemsStatus>>>
 export type GetUserIdItemsStatusSuspenseQueryError = unknown
 
 
+export function useGetUserIdItemsStatusSuspense<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
+ id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdItemsStatusSuspense<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetUserIdItemsStatusSuspense<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetUserIdItemsStatusSuspense<TData = Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError = unknown>(
- id: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>, }
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getUserIdItemsStatus>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetUserIdItemsStatusSuspenseQueryOptions(id,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 

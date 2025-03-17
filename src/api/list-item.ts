@@ -10,9 +10,13 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -121,7 +125,7 @@ export const getGetListItemsByListIdQueryKey = (listId: string,
 
     
 export const getGetListItemsByListIdQueryOptions = <TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(listId: string,
-    params?: GetListItemsByListIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>, }
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -136,23 +140,50 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(listId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(listId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetListItemsByListIdQueryResult = NonNullable<Awaited<ReturnType<typeof getListItemsByListId>>>
 export type GetListItemsByListIdQueryError = unknown
 
 
+export function useGetListItemsByListId<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
+ listId: string,
+    params: undefined |  GetListItemsByListIdParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getListItemsByListId>>,
+          TError,
+          Awaited<ReturnType<typeof getListItemsByListId>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetListItemsByListId<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
+ listId: string,
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getListItemsByListId>>,
+          TError,
+          Awaited<ReturnType<typeof getListItemsByListId>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetListItemsByListId<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
+ listId: string,
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetListItemsByListId<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
  listId: string,
-    params?: GetListItemsByListIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>, }
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetListItemsByListIdQueryOptions(listId,params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -162,7 +193,7 @@ export function useGetListItemsByListId<TData = Awaited<ReturnType<typeof getLis
 
 
 export const getGetListItemsByListIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(listId: string,
-    params?: GetListItemsByListIdParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>, }
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -177,23 +208,38 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetListItemsByListIdSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getListItemsByListId>>>
 export type GetListItemsByListIdSuspenseQueryError = unknown
 
 
+export function useGetListItemsByListIdSuspense<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
+ listId: string,
+    params: undefined |  GetListItemsByListIdParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetListItemsByListIdSuspense<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
+ listId: string,
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetListItemsByListIdSuspense<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
+ listId: string,
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetListItemsByListIdSuspense<TData = Awaited<ReturnType<typeof getListItemsByListId>>, TError = unknown>(
  listId: string,
-    params?: GetListItemsByListIdParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>, }
+    params?: GetListItemsByListIdParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getListItemsByListId>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetListItemsByListIdSuspenseQueryOptions(listId,params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 

@@ -10,9 +10,13 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -120,7 +124,7 @@ export const getGetReviewRepliesQueryKey = (params: GetReviewRepliesParams,) => 
     }
 
     
-export const getGetReviewRepliesQueryOptions = <TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(params: GetReviewRepliesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>, }
+export const getGetReviewRepliesQueryOptions = <TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(params: GetReviewRepliesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -135,22 +139,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetReviewRepliesQueryResult = NonNullable<Awaited<ReturnType<typeof getReviewReplies>>>
 export type GetReviewRepliesQueryError = unknown
 
 
+export function useGetReviewReplies<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
+ params: GetReviewRepliesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getReviewReplies>>,
+          TError,
+          Awaited<ReturnType<typeof getReviewReplies>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetReviewReplies<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
+ params: GetReviewRepliesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getReviewReplies>>,
+          TError,
+          Awaited<ReturnType<typeof getReviewReplies>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetReviewReplies<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
+ params: GetReviewRepliesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetReviewReplies<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
- params: GetReviewRepliesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>, }
+ params: GetReviewRepliesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetReviewRepliesQueryOptions(params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -159,7 +187,7 @@ export function useGetReviewReplies<TData = Awaited<ReturnType<typeof getReviewR
 
 
 
-export const getGetReviewRepliesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(params: GetReviewRepliesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>, }
+export const getGetReviewRepliesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(params: GetReviewRepliesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -174,22 +202,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetReviewRepliesSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getReviewReplies>>>
 export type GetReviewRepliesSuspenseQueryError = unknown
 
 
+export function useGetReviewRepliesSuspense<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
+ params: GetReviewRepliesParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetReviewRepliesSuspense<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
+ params: GetReviewRepliesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetReviewRepliesSuspense<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
+ params: GetReviewRepliesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetReviewRepliesSuspense<TData = Awaited<ReturnType<typeof getReviewReplies>>, TError = unknown>(
- params: GetReviewRepliesParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>, }
+ params: GetReviewRepliesParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getReviewReplies>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetReviewRepliesSuspenseQueryOptions(params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 

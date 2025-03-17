@@ -21,19 +21,28 @@ export function useGetUserItems(params: GetUserItemsProps) {
       initialPageParam: undefined,
       getNextPageParam: lastPage => lastPage.nextCursor,
       queryFn: async ({ pageParam }) => {
-        return await getUserItems({
+        const response = await getUserItems({
           ...params,
           pageSize: '20',
           cursor: pageParam as string,
         })
+        return response
       },
     },
   })
 
-  console.log('data', data?.userItems[0])
+  // Extract the first page data
+  const firstPageData = data?.pages?.[0]
+
+  // Create a properly structured response that matches what your component expects
+  const processedData = firstPageData
+    ? {
+        userItems: firstPageData.userItems || [],
+      }
+    : undefined
 
   return {
-    data,
+    data: processedData,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,

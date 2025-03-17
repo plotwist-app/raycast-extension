@@ -10,9 +10,13 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -173,7 +177,7 @@ export const getGetLikesEntityIdQueryKey = (entityId: string,) => {
     }
 
     
-export const getGetLikesEntityIdQueryOptions = <TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(entityId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>, }
+export const getGetLikesEntityIdQueryOptions = <TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(entityId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -188,22 +192,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(entityId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(entityId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetLikesEntityIdQueryResult = NonNullable<Awaited<ReturnType<typeof getLikesEntityId>>>
 export type GetLikesEntityIdQueryError = unknown
 
 
+export function useGetLikesEntityId<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
+ entityId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getLikesEntityId>>,
+          TError,
+          Awaited<ReturnType<typeof getLikesEntityId>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetLikesEntityId<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
+ entityId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getLikesEntityId>>,
+          TError,
+          Awaited<ReturnType<typeof getLikesEntityId>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetLikesEntityId<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
+ entityId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetLikesEntityId<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
- entityId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>, }
+ entityId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetLikesEntityIdQueryOptions(entityId,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -212,7 +240,7 @@ export function useGetLikesEntityId<TData = Awaited<ReturnType<typeof getLikesEn
 
 
 
-export const getGetLikesEntityIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(entityId: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>, }
+export const getGetLikesEntityIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(entityId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -227,22 +255,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetLikesEntityIdSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getLikesEntityId>>>
 export type GetLikesEntityIdSuspenseQueryError = unknown
 
 
+export function useGetLikesEntityIdSuspense<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
+ entityId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetLikesEntityIdSuspense<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
+ entityId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetLikesEntityIdSuspense<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
+ entityId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetLikesEntityIdSuspense<TData = Awaited<ReturnType<typeof getLikesEntityId>>, TError = unknown>(
- entityId: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>, }
+ entityId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getLikesEntityId>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetLikesEntityIdSuspenseQueryOptions(entityId,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 

@@ -10,9 +10,13 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -122,7 +126,7 @@ export const getGetImportImportIdQueryKey = (importId: string,) => {
     }
 
     
-export const getGetImportImportIdQueryOptions = <TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(importId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>, }
+export const getGetImportImportIdQueryOptions = <TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(importId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -137,22 +141,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, enabled: !!(importId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(importId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetImportImportIdQueryResult = NonNullable<Awaited<ReturnType<typeof getImportImportId>>>
 export type GetImportImportIdQueryError = GetImportImportId404
 
 
+export function useGetImportImportId<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
+ importId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getImportImportId>>,
+          TError,
+          Awaited<ReturnType<typeof getImportImportId>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetImportImportId<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
+ importId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getImportImportId>>,
+          TError,
+          Awaited<ReturnType<typeof getImportImportId>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetImportImportId<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
+ importId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetImportImportId<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
- importId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>, }
+ importId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetImportImportIdQueryOptions(importId,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -161,7 +189,7 @@ export function useGetImportImportId<TData = Awaited<ReturnType<typeof getImport
 
 
 
-export const getGetImportImportIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(importId: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>, }
+export const getGetImportImportIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(importId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -176,22 +204,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetImportImportIdSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getImportImportId>>>
 export type GetImportImportIdSuspenseQueryError = GetImportImportId404
 
 
+export function useGetImportImportIdSuspense<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
+ importId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetImportImportIdSuspense<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
+ importId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetImportImportIdSuspense<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
+ importId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetImportImportIdSuspense<TData = Awaited<ReturnType<typeof getImportImportId>>, TError = GetImportImportId404>(
- importId: string, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>, }
+ importId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getImportImportId>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetImportImportIdSuspenseQueryOptions(importId,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 

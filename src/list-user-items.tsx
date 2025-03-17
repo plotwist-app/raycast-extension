@@ -31,7 +31,7 @@ function UserItemsList() {
             <ActionPanel>
               <Action.OpenInBrowser
                 title="Open in Plotwist"
-                url={`https://plotwist.app/en-us/item/${item.id}`}
+                url={`https://plotwist.app/en-US/${item.mediaType === 'MOVIE' ? 'movies' : 'tv-series'}/${item.tmdbId}`}
               />
               <Action.CopyToClipboard title="Copy Title" content={item.title} />
             </ActionPanel>

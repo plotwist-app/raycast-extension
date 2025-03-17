@@ -11,9 +11,15 @@ import {
   useSuspenseQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseInfiniteQueryResult,
+  DefinedUseQueryResult,
+  InfiniteData,
   MutationFunction,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseInfiniteQueryOptions,
   UseInfiniteQueryResult,
   UseMutationOptions,
@@ -122,7 +128,7 @@ export const getGetFollowQueryKey = (params: GetFollowParams,) => {
     }
 
     
-export const getGetFollowQueryOptions = <TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(params: GetFollowParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>, }
+export const getGetFollowQueryOptions = <TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(params: GetFollowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -137,22 +143,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetFollowQueryResult = NonNullable<Awaited<ReturnType<typeof getFollow>>>
 export type GetFollowQueryError = unknown
 
 
+export function useGetFollow<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
+ params: GetFollowParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFollow>>,
+          TError,
+          Awaited<ReturnType<typeof getFollow>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollow<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
+ params: GetFollowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFollow>>,
+          TError,
+          Awaited<ReturnType<typeof getFollow>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollow<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
+ params: GetFollowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetFollow<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
- params: GetFollowParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>, }
+ params: GetFollowParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetFollowQueryOptions(params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -161,7 +191,7 @@ export function useGetFollow<TData = Awaited<ReturnType<typeof getFollow>>, TErr
 
 
 
-export const getGetFollowSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(params: GetFollowParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>, }
+export const getGetFollowSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(params: GetFollowParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -176,22 +206,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetFollowSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getFollow>>>
 export type GetFollowSuspenseQueryError = unknown
 
 
+export function useGetFollowSuspense<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
+ params: GetFollowParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowSuspense<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
+ params: GetFollowParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowSuspense<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
+ params: GetFollowParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetFollowSuspense<TData = Awaited<ReturnType<typeof getFollow>>, TError = unknown>(
- params: GetFollowParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>, }
+ params: GetFollowParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollow>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetFollowSuspenseQueryOptions(params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -282,7 +324,7 @@ export const getGetFollowersQueryKey = (params?: GetFollowersParams,) => {
     }
 
     
-export const getGetFollowersInfiniteQueryOptions = <TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(params?: GetFollowersParams, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>, }
+export const getGetFollowersInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof getFollowers>>>, TError = unknown>(params?: GetFollowersParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -297,22 +339,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetFollowersInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getFollowers>>>
 export type GetFollowersInfiniteQueryError = unknown
 
 
+export function useGetFollowersInfinite<TData = InfiniteData<Awaited<ReturnType<typeof getFollowers>>>, TError = unknown>(
+ params: undefined |  GetFollowersParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFollowers>>,
+          TError,
+          Awaited<ReturnType<typeof getFollowers>>
+        > , 'initialData'
+      >, }
 
-export function useGetFollowersInfinite<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
- params?: GetFollowersParams, options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>, }
+  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowersInfinite<TData = InfiniteData<Awaited<ReturnType<typeof getFollowers>>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFollowers>>,
+          TError,
+          Awaited<ReturnType<typeof getFollowers>>
+        > , 'initialData'
+      >, }
 
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowersInfinite<TData = InfiniteData<Awaited<ReturnType<typeof getFollowers>>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
+
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetFollowersInfinite<TData = InfiniteData<Awaited<ReturnType<typeof getFollowers>>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
+
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetFollowersInfiniteQueryOptions(params,options)
 
-  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useInfiniteQuery(queryOptions) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -321,7 +387,7 @@ export function useGetFollowersInfinite<TData = Awaited<ReturnType<typeof getFol
 
 
 
-export const getGetFollowersQueryOptions = <TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(params?: GetFollowersParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>, }
+export const getGetFollowersQueryOptions = <TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(params?: GetFollowersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -336,22 +402,46 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetFollowersQueryResult = NonNullable<Awaited<ReturnType<typeof getFollowers>>>
 export type GetFollowersQueryError = unknown
 
 
+export function useGetFollowers<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
+ params: undefined |  GetFollowersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFollowers>>,
+          TError,
+          Awaited<ReturnType<typeof getFollowers>>
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowers<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getFollowers>>,
+          TError,
+          Awaited<ReturnType<typeof getFollowers>>
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowers<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetFollowers<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
- params?: GetFollowersParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>, }
+ params?: GetFollowersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
 
-  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetFollowersQueryOptions(params,options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -360,7 +450,7 @@ export function useGetFollowers<TData = Awaited<ReturnType<typeof getFollowers>>
 
 
 
-export const getGetFollowersSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(params?: GetFollowersParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>, }
+export const getGetFollowersSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(params?: GetFollowersParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
@@ -375,22 +465,34 @@ const {query: queryOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
 export type GetFollowersSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getFollowers>>>
 export type GetFollowersSuspenseQueryError = unknown
 
 
+export function useGetFollowersSuspense<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
+ params: undefined |  GetFollowersParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowersSuspense<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetFollowersSuspense<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
+ params?: GetFollowersParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
 export function useGetFollowersSuspense<TData = Awaited<ReturnType<typeof getFollowers>>, TError = unknown>(
- params?: GetFollowersParams, options?: { query?:UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>, }
+ params?: GetFollowersParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getFollowers>>, TError, TData>>, }
 
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetFollowersSuspenseQueryOptions(params,options)
 
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
   query.queryKey = queryOptions.queryKey ;
 
