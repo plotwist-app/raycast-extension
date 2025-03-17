@@ -1,8 +1,7 @@
 import Axios, { type AxiosRequestConfig } from 'axios'
 import { QueryClient } from '@tanstack/react-query'
 import { config } from '../config'
-
-const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwZDI2Y2JlLWRmYWEtNGJlZC1hMDRmLWM1ZjUzYjg1M2UwMiIsImlhdCI6MTc0MjE2MjIxNn0.OFzmdsBGoTgMZCP2lKWmLVXyi2VY58OdX464kG5ZVFI'
+import { API_TOKEN } from '../../ignore-envs'
 
 export const queryClient = new QueryClient()
 
